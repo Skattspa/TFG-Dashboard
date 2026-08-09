@@ -1,0 +1,32 @@
+.details-container {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #0055FF;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 24px;
+  color: #0F172A;
+  margin-bottom: 32px;
+}
+
+.chart-wrapper {
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  border-radius: 12px;
+  padding: 24px;
+  height: 400px; /* Altura fija para que el gráfico se adapte */
+}

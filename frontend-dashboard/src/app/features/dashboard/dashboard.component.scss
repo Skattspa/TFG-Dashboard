@@ -19,13 +19,25 @@ header p {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: 1fr; /* Mobile First: 1 columna */
+  grid-template-columns: 1fr; 
   gap: 24px;
+}
+
+.card-link {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  border-radius: 12px; 
+  transition: transform 0.2s ease-in-out; 
+}
+
+.card-link:hover {
+  transform: translateY(-4px); 
 }
 
 /* Diseño adaptativo para resoluciones de escritorio */
 @media (min-width: 768px) {
   .metrics-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas en escritorio */
+    grid-template-columns: repeat(3, 1fr); 
   }
 }

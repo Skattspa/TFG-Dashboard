@@ -13,7 +13,7 @@ app.get('/api/weather', async (req, res) => {
     const lon = req.query.lon || -122.41286;
 
     try {
-        const conexion = await amqp.connect('amqp://localhost');
+        const conexion = await amqp.connect('amqp://rabbitmq');
         const canal = await conexion.createChannel();
         
         // Cola de peticiones donde escucha el microservicio

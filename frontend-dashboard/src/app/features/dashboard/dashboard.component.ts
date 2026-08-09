@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherDataService } from '../../core/weather-data.service';
 import { MetricCardComponent } from '../../shared/metric-card/metric-card.component';
+import { RouterModule } from '@angular/router';
+import { ErrorBannerComponent } from '../../shared/error-banner/error-banner.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MetricCardComponent], 
+  imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent], 
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

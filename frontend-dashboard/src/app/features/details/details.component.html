@@ -1,0 +1,19 @@
+<div class="details-container">
+  <header>
+    <a routerLink="/" class="back-link">← Volver al Dashboard</a>
+    <h1>Previsión de Temperatura (24h)</h1>
+  </header>
+
+  <!-- El contenedor de la gráfica -->
+  <div class="chart-wrapper" *ngIf="hasData">
+    <canvas baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [type]="'line'">
+    </canvas>
+  </div>
+  
+  <div *ngIf="!hasData" class="loading">
+     <p>Cargando datos del pronóstico...</p>
+  </div>
+</div>

@@ -7,12 +7,14 @@
   
   <div class="metrics-grid">
     <!-- Reutilizamos el componente 3 veces inyectando los datos reales -->
-    <app-metric-card 
-      title="Temperature" 
-      [value]="data.temperatura" 
-      unit="°C" 
-      icon="🌡️">
-    </app-metric-card>
+    <a routerLink="/details" class="card-link">
+      <app-metric-card 
+        title="Temperature" 
+        [value]="data.temperatura" 
+        unit="°C" 
+        icon="🌡️">
+      </app-metric-card>
+    </a>
     
     <app-metric-card 
       title="Humidity" 
@@ -34,3 +36,10 @@
 <div *ngIf="!(weatherService.state$ | async)">
   <p>Cargando datos meteorológicos desde el servidor...</p>
 </div>
+
+<!-- Mostrar banner si hay error -->
+  <app-error-banner 
+    *ngIf="weatherService.error$ | async as errorMessage" 
+    [message]="errorMessage"
+    (retry)="weatherService.fetchWeatherData()">
+  </app-error-banner>
