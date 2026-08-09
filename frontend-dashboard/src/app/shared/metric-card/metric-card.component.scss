@@ -1,0 +1,52 @@
+/* Contenedor principal de la tarjeta */
+.metric-card {
+  background-color: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo del icono (Primary Blue) */
+.icon {
+  color: #0055FF;
+  font-size: 24px;
+}
+
+/* Contenedor del valor numérico y unidad */
+.metric-body {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+/* Valor principal (Deep Navy/Black) */
+.metric-value {
+  font-size: 40px;
+  font-weight: 500;
+  color: #0F172A;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* Unidad de medida */
+.metric-unit {
+  font-size: 16px;
+  color: #64748B;
+  font-weight: 400;
+}
+
+/* Etiqueta descriptiva inferior (Slate Gray) */
+.label-caps {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748B;
+}

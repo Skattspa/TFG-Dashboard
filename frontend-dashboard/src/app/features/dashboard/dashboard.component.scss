@@ -1,0 +1,31 @@
+.dashboard-container {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+header p {
+  color: #64748B;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile First: 1 columna */
+  gap: 24px;
+}
+
+/* Diseño adaptativo para resoluciones de escritorio */
+@media (min-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en escritorio */
+  }
+}

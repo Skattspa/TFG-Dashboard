@@ -1,0 +1,36 @@
+<!-- Nos suscribimos al estado de RxJS de forma limpia con el pipe async -->
+<div class="dashboard-container" *ngIf="weatherService.state$ | async as data">
+  <header>
+    <h1>Overview</h1>
+    <p>Current atmospheric conditions for San Francisco</p>
+  </header>
+  
+  <div class="metrics-grid">
+    <!-- Reutilizamos el componente 3 veces inyectando los datos reales -->
+    <app-metric-card 
+      title="Temperature" 
+      [value]="data.temperatura" 
+      unit="°C" 
+      icon="🌡️">
+    </app-metric-card>
+    
+    <app-metric-card 
+      title="Humidity" 
+      [value]="data.humedad" 
+      unit="%" 
+      icon="💧">
+    </app-metric-card>
+    
+    <app-metric-card 
+      title="Wind Speed" 
+      [value]="data.viento" 
+      unit="km/h" 
+      icon="💨">
+    </app-metric-card>
+  </div>
+</div>
+
+<!-- Un mensaje de carga mientras llegan los datos de RabbitMQ -->
+<div *ngIf="!(weatherService.state$ | async)">
+  <p>Cargando datos meteorológicos desde el servidor...</p>
+</div>
