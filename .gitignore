@@ -1,0 +1,10 @@
+# Dependencias de Node
+node_modules/
+
+# Archivos compilados de Angular
+dist/
+.angular/
+
+# Archivos de entorno y logs
+.env
+npm-debug.log
