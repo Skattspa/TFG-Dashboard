@@ -4,14 +4,12 @@
     <h1>Previsión de Temperatura (24h)</h1>
   </header>
 
-  <!-- El contenedor de la gráfica -->
   <div class="chart-wrapper" *ngIf="hasData">
-    <canvas baseChart
-      [data]="lineChartData"
-      [options]="lineChartOptions"
-      [type]="'line'">
-    </canvas>
-  </div>
+  <app-line-chart-wrapper 
+    [chartData]="lineChartData" 
+    [chartOptions]="lineChartOptions">
+  </app-line-chart-wrapper>
+</div>
   
   <div *ngIf="!hasData" class="loading">
      <p>Cargando datos del pronóstico...</p>

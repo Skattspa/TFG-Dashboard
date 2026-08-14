@@ -13,8 +13,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       console.error('[Interceptor HTTP]', mensajeError);
-      
-      // Propagamos el error para que el servicio lo maneje visualmente
+
       return throwError(() => new Error(mensajeError));
     })
   );

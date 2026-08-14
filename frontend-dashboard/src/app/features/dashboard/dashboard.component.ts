@@ -9,17 +9,14 @@ import { SearchLocationComponent } from '../../shared/search-location/search-loc
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent, SearchLocationComponent], 
+  imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent, SearchLocationComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  
-  // Inyectamos el servicio Singleton que maneja el estado global
   constructor(public weatherService: WeatherDataService) {}
 
   ngOnInit(): void {
-    // Al cargar la pantalla, disparamos la petición al Backend/Gateway
-    this.weatherService.fetchWeatherData('San Francisco'); 
+    this.weatherService.fetchWeatherData('San Francisco');
   }
 }

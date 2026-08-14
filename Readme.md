@@ -48,10 +48,14 @@ Para evaluar el proyecto, es necesario arrancar los componentes siguiendo estos 
 * **Angular CLI** instalado globalmente (`npm install -g @angular/cli`).
 
 ### Paso 1: Levantar la Infraestructura Backend (Docker)
+Es necesario comprobar primero que el programa de Docker en local, o en la instancia necesaria esté ejecutandose.
 Desde la raíz del repositorio, abre una terminal y ejecuta el siguiente comando. Esto construirá las imágenes del API Gateway y el Microservicio, y levantará toda la orquestación junto con RabbitMQ en segundo plano:
+1. Para la primera instalacion
 ```bash
 docker compose up -d --build
 ```
+2. Para levantarlo si no se han hecho modificaciones en backend
+docker compose up
 
 ### Paso 2: Arrancar el Frontend (Angular)
 cd frontend-dashboard
@@ -64,3 +68,12 @@ apagar contenedores de backend ejecutando:
 ```bash
 docker compose down
 ```
+
+### FAQ Troubleshooting
+1. Si no recibes datos del servidor:
+docker compose down -v
+docker compose up -d --build
+2. Revisar logs para saber si se han levantado todos correctamente.
+docker compose logs -f rabbitmq worker-microservicio api-gateway
+3. Si hay alguno que falle, reiniciar con este comando (terminado en el nombre del microservicio caido)
+docker compose restart worker-microservicio

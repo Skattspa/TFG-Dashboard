@@ -1,4 +1,3 @@
-/* Contenedor principal de la tarjeta */
 .metric-card {
   background-color: #F8FAFC;
   border: 1px solid #F1F5F9;
@@ -12,20 +11,17 @@
   box-sizing: border-box;
 }
 
-/* Estilo del icono (Primary Blue) */
 .icon {
   color: #0055FF;
   font-size: 24px;
 }
 
-/* Contenedor del valor numérico y unidad */
 .metric-body {
   display: flex;
   align-items: baseline;
   gap: 8px;
 }
 
-/* Valor principal (Deep Navy/Black) */
 .metric-value {
   font-size: 40px;
   font-weight: 500;
@@ -41,7 +37,6 @@
   font-weight: 400;
 }
 
-/* Etiqueta descriptiva inferior (Slate Gray) */
 .label-caps {
   font-size: 12px;
   font-weight: 600;
