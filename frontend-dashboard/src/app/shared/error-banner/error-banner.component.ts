@@ -1,11 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-error-banner',
   standalone: true,
   imports: [],
   templateUrl: './error-banner.component.html',
-  styleUrl: './error-banner.component.scss'
+  styleUrl: './error-banner.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ErrorBannerComponent {
   @Input() message: string = 'Ha ocurrido un error.';

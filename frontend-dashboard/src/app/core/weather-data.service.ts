@@ -11,11 +11,13 @@ export interface WeatherData {
   pronostico24h?: {
     horas: string[];
     temperaturas: number[];
+    humedades: number[];
+    vientos: number[];
   };
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WeatherDataService {
   private weatherSubject = new BehaviorSubject<WeatherData | null>(null);
@@ -35,10 +37,9 @@ export class WeatherDataService {
 
     const gatewayUrl = `http://localhost:3000/api/weather?ciudad=${encodeURIComponent(ciudad)}`;
 
-    this.http.get<WeatherData>(gatewayUrl)
-      .pipe(
-        finalize(() => this.loadingSubject.next(false))
-      )
+    this.http
+      .get<WeatherData>(gatewayUrl)
+      .pipe(finalize(() => this.loadingSubject.next(false)))
       .subscribe({
         next: (data) => {
           this.weatherSubject.next(data);
@@ -46,7 +47,11 @@ export class WeatherDataService {
         },
         error: (err) => {
           this.errorSubject.next(err.message);
-        }
+        },
       });
+  }
+
+  public getCurrentStateValue(): WeatherData | null {
+    return this.weatherSubject.getValue();
   }
 }

@@ -1,60 +1,54 @@
-
 <div class="dashboard-container">
   <header>
     <h1>Aether Metrics</h1>
     <p>Resumen Atmosférico</p>
   </header>
 
-  <!-- Nuestro nuevo componente buscador -->
   <app-search-location></app-search-location>
 
-  <app-error-banner 
-    *ngIf="weatherService.error$ | async as errorMessage" 
+  <app-error-banner
+    *ngIf="weatherService.error$ | async as errorMessage"
     [message]="errorMessage"
-    (retry)="weatherService.fetchWeatherData()">
+    (retry)="weatherService.fetchWeatherData()"
+  >
   </app-error-banner>
 
-  <!-- Cargando Spinner / Texto -->
   <div *ngIf="weatherService.isLoading$ | async" class="loading-state">
     <p>⏳ Obteniendo datos meteorológicos...</p>
   </div>
 
-  <!-- Mostrar datos solo si no hay error, no está cargando y hay datos -->
   <ng-container *ngIf="!(weatherService.error$ | async) && !(weatherService.isLoading$ | async)">
     <div *ngIf="weatherService.state$ | async as data">
-      
-      <!-- Título dinámico con la ciudad devuelta por la API -->
-      <h2 style="margin-bottom: 24px;">{{ data.ciudad || 'San Francisco' }}</h2>
+      <h2 class="city-title">{{ data.ciudad || 'San Francisco' }}</h2>
 
-      <!-- El resto de tus tarjetas (las envuelves normal) -->
       <div class="metrics-grid">
-         <div class="metrics-grid">
-    <!-- Reutilizamos el componente 3 veces inyectando los datos reales -->
-    <a routerLink="/details" class="card-link">
-      <app-metric-card 
-        title="Temperature" 
-        [value]="data.temperatura" 
-        unit="°C" 
-        icon="🌡️">
-      </app-metric-card>
-    </a>
-    
-    <app-metric-card 
-      title="Humidity" 
-      [value]="data.humedad" 
-      unit="%" 
-      icon="💧">
-    </app-metric-card>
-    
-    <app-metric-card 
-      title="Wind Speed" 
-      [value]="data.viento" 
-      unit="km/h" 
-      icon="💨">
-    </app-metric-card>
-  </div>
-      </div>
+        <app-metric-card
+          title="Temperature"
+          [value]="data.temperatura"
+          unit="°C"
+          icon="🌡️"
+          linkRoute="/details/temperatura"
+        >
+        </app-metric-card>
 
+        <app-metric-card
+          title="Humidity"
+          [value]="data.humedad"
+          unit="%"
+          icon="💧"
+          linkRoute="/details/humedad"
+        >
+        </app-metric-card>
+
+        <app-metric-card
+          title="Wind Speed"
+          [value]="data.viento"
+          unit="km/h"
+          icon="💨"
+          linkRoute="/details/viento"
+        >
+        </app-metric-card>
+      </div>
     </div>
   </ng-container>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherDataService } from '../../core/weather-data.service';
 
@@ -7,7 +7,8 @@ import { WeatherDataService } from '../../core/weather-data.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './search-location.component.html',
-  styleUrl: './search-location.component.scss'
+  styleUrl: './search-location.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchLocationComponent {
   constructor(public weatherService: WeatherDataService) {}

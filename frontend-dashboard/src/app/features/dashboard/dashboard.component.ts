@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherDataService } from '../../core/weather-data.service';
 import { MetricCardComponent } from '../../shared/metric-card/metric-card.component';
@@ -11,12 +11,16 @@ import { SearchLocationComponent } from '../../shared/search-location/search-loc
   standalone: true,
   imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent, SearchLocationComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
   constructor(public weatherService: WeatherDataService) {}
 
   ngOnInit(): void {
-    this.weatherService.fetchWeatherData('San Francisco');
+    const currentState = this.weatherService.getCurrentStateValue(); 
+    if (!currentState || Object.keys(currentState).length === 0) {
+      this.weatherService.fetchWeatherData('San Francisco');
+    }
   }
 }

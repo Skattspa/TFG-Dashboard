@@ -19,7 +19,6 @@ export class LineChartWrapperComponent implements OnDestroy {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   ngOnDestroy(): void {
-    // Destrucción segura para evitar fugas de memoria (Fase 5)
     if (this.chart && this.chart.chart) {
       this.chart.chart.destroy();
     }

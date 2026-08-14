@@ -19,8 +19,9 @@ header p {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: 1fr; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+  margin-bottom: 32px;
 }
 
 .card-link {
@@ -33,6 +34,10 @@ header p {
 
 .card-link:hover {
   transform: translateY(-4px); 
+}
+
+.city-title {
+  margin-bottom: 24px;
 }
 
 

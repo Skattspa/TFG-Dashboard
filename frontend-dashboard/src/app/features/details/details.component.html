@@ -1,17 +1,37 @@
 <div class="details-container">
   <header>
     <a routerLink="/" class="back-link">← Volver al Dashboard</a>
-    <h1>Previsión de Temperatura (24h)</h1>
+    <h1>{{ tituloGrafica }}</h1>
   </header>
 
-  <div class="chart-wrapper" *ngIf="hasData">
-  <app-line-chart-wrapper 
-    [chartData]="lineChartData" 
-    [chartOptions]="lineChartOptions">
-  </app-line-chart-wrapper>
-</div>
-  
-  <div *ngIf="!hasData" class="loading">
-     <p>Cargando datos del pronóstico...</p>
-  </div>
+  @if (hasData) {
+    <div class="chart-wrapper">
+      <app-line-chart-wrapper [chartData]="lineChartData" [chartOptions]="lineChartOptions">
+      </app-line-chart-wrapper>
+    </div>
+
+    <div class="secondary-metrics">
+      <app-metric-card
+        [icon]="card1.icon"
+        [value]="card1.value"
+        [unit]="card1.unit"
+        [title]="card1.title"
+        [showAction]="false"
+      >
+      </app-metric-card>
+
+      <app-metric-card
+        [icon]="card2.icon"
+        [value]="card2.value"
+        [unit]="card2.unit"
+        [title]="card2.title"
+        [showAction]="false"
+      >
+      </app-metric-card>
+    </div>
+  } @else {
+    <div class="loading">
+      <p>Cargando datos del pronóstico...</p>
+    </div>
+  }
 </div>
