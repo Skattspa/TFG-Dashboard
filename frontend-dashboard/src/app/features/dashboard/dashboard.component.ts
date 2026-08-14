@@ -4,11 +4,12 @@ import { WeatherDataService } from '../../core/weather-data.service';
 import { MetricCardComponent } from '../../shared/metric-card/metric-card.component';
 import { RouterModule } from '@angular/router';
 import { ErrorBannerComponent } from '../../shared/error-banner/error-banner.component';
+import { SearchLocationComponent } from '../../shared/search-location/search-location.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent], 
+  imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent, SearchLocationComponent], 
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -19,6 +20,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // Al cargar la pantalla, disparamos la petición al Backend/Gateway
-    this.weatherService.fetchWeatherData(); 
+    this.weatherService.fetchWeatherData('San Francisco'); 
   }
 }

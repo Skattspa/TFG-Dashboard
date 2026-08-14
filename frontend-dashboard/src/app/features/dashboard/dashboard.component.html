@@ -1,11 +1,34 @@
-<!-- Nos suscribimos al estado de RxJS de forma limpia con el pipe async -->
-<div class="dashboard-container" *ngIf="weatherService.state$ | async as data">
+
+<div class="dashboard-container">
   <header>
-    <h1>Overview</h1>
-    <p>Current atmospheric conditions for San Francisco</p>
+    <h1>Aether Metrics</h1>
+    <p>Resumen Atmosférico</p>
   </header>
-  
-  <div class="metrics-grid">
+
+  <!-- Nuestro nuevo componente buscador -->
+  <app-search-location></app-search-location>
+
+  <app-error-banner 
+    *ngIf="weatherService.error$ | async as errorMessage" 
+    [message]="errorMessage"
+    (retry)="weatherService.fetchWeatherData()">
+  </app-error-banner>
+
+  <!-- Cargando Spinner / Texto -->
+  <div *ngIf="weatherService.isLoading$ | async" class="loading-state">
+    <p>⏳ Obteniendo datos meteorológicos...</p>
+  </div>
+
+  <!-- Mostrar datos solo si no hay error, no está cargando y hay datos -->
+  <ng-container *ngIf="!(weatherService.error$ | async) && !(weatherService.isLoading$ | async)">
+    <div *ngIf="weatherService.state$ | async as data">
+      
+      <!-- Título dinámico con la ciudad devuelta por la API -->
+      <h2 style="margin-bottom: 24px;">{{ data.ciudad || 'San Francisco' }}</h2>
+
+      <!-- El resto de tus tarjetas (las envuelves normal) -->
+      <div class="metrics-grid">
+         <div class="metrics-grid">
     <!-- Reutilizamos el componente 3 veces inyectando los datos reales -->
     <a routerLink="/details" class="card-link">
       <app-metric-card 
@@ -30,16 +53,8 @@
       icon="💨">
     </app-metric-card>
   </div>
-</div>
+      </div>
 
-<!-- Un mensaje de carga mientras llegan los datos de RabbitMQ -->
-<div *ngIf="!(weatherService.state$ | async)">
-  <p>Cargando datos meteorológicos desde el servidor...</p>
+    </div>
+  </ng-container>
 </div>
-
-<!-- Mostrar banner si hay error -->
-  <app-error-banner 
-    *ngIf="weatherService.error$ | async as errorMessage" 
-    [message]="errorMessage"
-    (retry)="weatherService.fetchWeatherData()">
-  </app-error-banner>
