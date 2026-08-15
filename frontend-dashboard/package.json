@@ -29,6 +29,7 @@
     "@angular/compiler-cli": "^21.2.0",
     "@angular/platform-browser-dynamic": "^21.2.19",
     "@types/jest": "^30.0.0",
+    "cypress": "^15.20.1",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "jest-preset-angular": "^17.0.0",
