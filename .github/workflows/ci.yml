@@ -2,15 +2,14 @@ name: Frontend CI
 
 on:
   push:
-    branches: ["main", "master", "develop"]
+    branches: ["main"]
   pull_request:
-    branches: ["main", "master", "develop"]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # INDICAMOS LA CARPETA EXACTA DONDE DEBE EJECUTARSE
     defaults:
       run:
         working-directory: ./frontend-dashboard
@@ -28,11 +27,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          # INDICAMOS DÓNDE ESTÁ EL ARCHIVO DE BLOQUEO DE NPM
           cache-dependency-path: ./frontend-dashboard/package-lock.json
 
       - name: Instalar dependencias
+        working-directory: ./frontend-dashboard
         run: npm install --legacy-peer-deps
 
+      - name: Ejecutar pruebas unitarias (Jest)
+        working-directory: ./frontend-dashboard
+        run: npm test -- --ci
+
       - name: Compilar el proyecto (Build)
+        working-directory: ./frontend-dashboard
         run: npm run build
