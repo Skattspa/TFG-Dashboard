@@ -32,7 +32,7 @@ jobs:
           cache-dependency-path: ./frontend-dashboard/package-lock.json
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Compilar el proyecto (Build)
         run: npm run build
