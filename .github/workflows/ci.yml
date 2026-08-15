@@ -1,0 +1,38 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: ["main", "master", "develop"]
+  pull_request:
+    branches: ["main", "master", "develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # INDICAMOS LA CARPETA EXACTA DONDE DEBE EJECUTARSE
+    defaults:
+      run:
+        working-directory: ./frontend-dashboard
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          # INDICAMOS DÓNDE ESTÁ EL ARCHIVO DE BLOQUEO DE NPM
+          cache-dependency-path: ./frontend-dashboard/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Compilar el proyecto (Build)
+        run: npm run build
