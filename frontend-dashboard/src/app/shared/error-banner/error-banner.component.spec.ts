@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ErrorBannerComponent } from "./error-banner.component";
 
-import { ErrorBannerComponent } from './error-banner.component';
-
-describe('ErrorBannerComponent', () => {
+describe("ErrorBannerComponent", () => {
   let component: ErrorBannerComponent;
   let fixture: ComponentFixture<ErrorBannerComponent>;
 
@@ -13,10 +12,10 @@ describe('ErrorBannerComponent', () => {
 
     fixture = TestBed.createComponent(ErrorBannerComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("debe crearse correctamente", () => {
     expect(component).toBeTruthy();
   });
 });
