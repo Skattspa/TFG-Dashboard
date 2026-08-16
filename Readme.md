@@ -60,7 +60,10 @@ docker compose up -d --build
 ```
 
 2. Para levantarlo si no se han hecho modificaciones en backend
-   docker compose up
+
+```bash
+   docker compose up -d
+```
 
 ### Paso 2: Arrancar el Frontend (Angular)
 
@@ -79,12 +82,9 @@ docker compose down
 
 ### FAQ Troubleshooting
 
-1. Si no recibes datos del servidor:
-   docker compose down -v
-   docker compose up -d --build
-2. Revisar logs para saber si se han levantado todos correctamente.
+1. Revisar logs para saber si se han levantado todos correctamente.
    docker compose logs -f rabbitmq worker-microservicio api-gateway
-3. Si hay alguno que falle, reiniciar con este comando (terminado en el nombre del microservicio caido)
+2. Si hay alguno que falle, reiniciar con este comando (terminado en el nombre del microservicio caido)
    docker compose restart worker-microservicio
 
 ### Unit testing: Jest
@@ -94,7 +94,31 @@ Los test están creados y configurados en github actions. En cada git push se ej
 #### e2e testing
 
 Para ejecutarlos debe esta compilado:
-frontend-dashboard: ng serve
+frontend-dashboard:
+
+```bash
+ng serve
 docker compose up
+```
+
 ejecutar comando para ejecutar test e2e en el directorio frontend-dashboard:
+
+```bash
 npx cypress open
+```
+
+#### Pruebas de rendimiento y carga
+
+1. Generar reporte de pruebas de cada propuesta de rendimiento
+
+```bash
+   K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reporte-carga.html k6 run load-test-connection.js
+```
+
+```bash
+   K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reporte-pico.html k6 run load-test-connection-queue.js
+```
+
+```bash
+   K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reporte-pico.html k6 run load-test-connection-stress.js
+```
