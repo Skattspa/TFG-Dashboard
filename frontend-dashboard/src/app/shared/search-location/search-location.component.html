@@ -1,17 +1,20 @@
 <div class="search-container">
   <form (submit)="buscarCiudad($event, searchInput)">
     <span class="search-icon">🔍</span>
-    <input 
+    <input
       #searchInput
-      type="text" 
-      placeholder="Buscar ciudad (ej. Madrid, Tokyo...)" 
+      type="text"
+      placeholder="Buscar ciudad (ej. Madrid, Tokyo...)"
       class="search-input"
+      data-cy="search-input"
+      [disabled]="(weatherService.isLoading$ | async) ?? false"
+    />
+    <button
+      type="submit"
+      class="search-button"
+      data-cy="search-button"
       [disabled]="(weatherService.isLoading$ | async) ?? false"
     >
-    <button 
-      type="submit" 
-      class="search-button"
-      [disabled]="(weatherService.isLoading$ | async) ?? false">
       Buscar
     </button>
   </form>

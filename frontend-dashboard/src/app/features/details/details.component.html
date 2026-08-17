@@ -1,11 +1,11 @@
 <div class="details-container">
   <header>
-    <a routerLink="/" class="back-link">← Volver al Dashboard</a>
-    <h1>{{ tituloGrafica }}</h1>
+    <a routerLink="/" class="back-link" data-cy="back-button">← Volver al Dashboard</a>
+    <h1 data-cy="details-title">{{ tituloGrafica }}</h1>
   </header>
 
   @if (hasData) {
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" data-cy="chart-container">
       <app-line-chart-wrapper [chartData]="lineChartData" [chartOptions]="lineChartOptions">
       </app-line-chart-wrapper>
     </div>
@@ -30,7 +30,7 @@
       </app-metric-card>
     </div>
   } @else {
-    <div class="loading">
+    <div class="loading" data-cy="details-loading">
       <p>Cargando datos del pronóstico...</p>
     </div>
   }

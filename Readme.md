@@ -93,12 +93,11 @@ Los test están creados y configurados en github actions. En cada git push se ej
 
 #### e2e testing
 
-Para ejecutarlos debe esta compilado:
-frontend-dashboard:
+Para ejecutarlos debe esta compilado primero tenemos que compilar el proyecto del directorio frontend-dashboard:
 
 ```bash
 ng serve
-docker compose up
+docker compose up -d
 ```
 
 ejecutar comando para ejecutar test e2e en el directorio frontend-dashboard:
@@ -120,5 +119,5 @@ npx cypress open
 ```
 
 ```bash
-   K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reporte-pico.html k6 run load-test-connection-stress.js
+   K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reporte-estres.html k6 run load-test-connection-stress.js
 ```

@@ -10,6 +10,7 @@
     *ngIf="weatherService.error$ | async as errorMessage"
     [message]="errorMessage"
     (retry)="weatherService.fetchWeatherData()"
+    data-cy="error-alert"
   >
   </app-error-banner>
 
@@ -19,7 +20,7 @@
 
   <ng-container *ngIf="!(weatherService.error$ | async) && !(weatherService.isLoading$ | async)">
     <div *ngIf="weatherService.state$ | async as data">
-      <h2 class="city-title">{{ data.ciudad || 'San Francisco' }}</h2>
+      <h2 class="city-title" data-cy="current-city-name">{{ data.ciudad || 'San Francisco' }}</h2>
 
       <div class="metrics-grid">
         <app-metric-card
@@ -28,6 +29,7 @@
           unit="°C"
           icon="🌡️"
           linkRoute="/details/temperatura"
+          data-cy="metric-card-temperature"
         >
         </app-metric-card>
 
@@ -37,6 +39,7 @@
           unit="%"
           icon="💧"
           linkRoute="/details/humedad"
+          data-cy="metric-card-humidity"
         >
         </app-metric-card>
 
@@ -46,6 +49,7 @@
           unit="km/h"
           icon="💨"
           linkRoute="/details/viento"
+          data-cy="metric-card-wind-speed"
         >
         </app-metric-card>
       </div>
