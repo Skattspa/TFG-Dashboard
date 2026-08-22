@@ -1,0 +1,142 @@
+// Variables de color basadas en tus imágenes
+$primary-blue: #0033cc;
+$active-bg: #f2f5ff;
+$text-gray: #888888;
+$border-color: #e0e0e0;
+
+.navigation-container {
+  // ---- DISPOSICIÓN MÓVIL (Por defecto) ----
+
+  .brand-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid $border-color;
+    z-index: 100;
+
+    .mobile-menu-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: $primary-blue;
+      margin-right: 16px;
+      cursor: pointer;
+    }
+
+    .brand-title {
+      color: $primary-blue;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+
+      // En móvil solo dice AETHER
+      .title-secondary {
+        display: none;
+      }
+    }
+  }
+
+  .nav-links {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid $border-color;
+    z-index: 100;
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: $text-gray;
+      font-size: 0.7rem;
+      font-weight: 600;
+      gap: 4px;
+
+      .icon-placeholder {
+        width: 24px;
+        height: 24px;
+        background-color: currentColor; // Hereda el color del texto para el icono
+        mask-size: cover;
+      }
+
+      &.active {
+        color: $primary-blue;
+      }
+    }
+  }
+
+  // ---- DISPOSICIÓN DESKTOP (A partir de 768px) ----
+  @media (min-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid $border-color;
+    display: flex;
+    flex-direction: column;
+
+    .brand-header {
+      position: relative; // Quitamos el fixed
+      height: auto;
+      padding: 40px 32px;
+      border-bottom: none;
+
+      .mobile-menu-btn {
+        display: none; // Ocultamos la hamburguesa
+      }
+
+      .brand-title {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.8rem;
+        line-height: 1.1;
+
+        // En desktop mostramos ambas palabras
+        .title-secondary {
+          display: block;
+        }
+      }
+    }
+
+    .nav-links {
+      position: relative; // Quitamos el fixed del bottom
+      height: auto;
+      border-top: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+
+      .nav-item {
+        flex-direction: row; // Icono a la izquierda, texto a la derecha
+        padding: 16px 32px;
+        font-size: 0.9rem;
+        gap: 16px;
+        border-left: 4px solid transparent; // Preparado para el estado activo
+
+        .nav-label {
+          text-transform: capitalize; // En desktop no están en mayúsculas completas
+        }
+
+        &.active {
+          background-color: $active-bg;
+          border-left: 4px solid $primary-blue;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,8 @@
 describe('Dashboard Meteorológico - Pruebas E2E y Resiliencia', () => {
   beforeEach(() => {
+    cy.intercept('GET', 'http://localhost:3000/api/weather*').as('initialLoad');
     cy.visit('http://localhost:4200');
+    cy.wait('@initialLoad');
   });
 
   // -------------------------------------------------------------------------
@@ -19,12 +21,21 @@ describe('Dashboard Meteorológico - Pruebas E2E y Resiliencia', () => {
   // -------------------------------------------------------------------------
   // 2. Flujo Asíncrono de Búsqueda
   // -------------------------------------------------------------------------
-  it('Debe actualizar los datos asíncronos tras la búsqueda', () => {
+  it('Debe mostrar estados de carga y actualizar los datos asíncronos tras la búsqueda', () => {
     const targetCity = 'Madrid';
-    cy.intercept('GET', 'http://localhost:3000/api/weather*').as('getWeatherData');
+    cy.intercept('GET', 'http://localhost:3000/api/weather*', (req) => {
+      return Cypress.Promise.delay(2000).then(() => {
+        req.continue();
+      });
+    }).as('getWeatherData');
+
+    // Lanzamos la búsqueda
     cy.get('[data-cy="search-input"]').clear().type(`${targetCity}{enter}`);
+    cy.get('[data-cy="loading-state"]').should('be.visible').and('contain', '⏳');
+
     cy.get('[data-cy="search-button"]').should('be.disabled');
     cy.wait('@getWeatherData');
+    cy.get('[data-cy="loading-state"]').should('not.exist');
     cy.get('[data-cy="search-button"]').should('not.be.disabled');
     cy.get('[data-cy="current-city-name"]').should('contain', targetCity);
     cy.get('[data-cy="metric-card-temperature"]').should('be.visible');
@@ -37,6 +48,7 @@ describe('Dashboard Meteorológico - Pruebas E2E y Resiliencia', () => {
     cy.intercept('GET', 'http://localhost:3000/api/weather*', {
       statusCode: 500,
       body: { error: 'Internal Server Error' },
+      delay: 3000,
     }).as('getServerFailure');
     cy.get('[data-cy="search-input"]').clear().type('Atlantis{enter}');
     cy.wait('@getServerFailure');

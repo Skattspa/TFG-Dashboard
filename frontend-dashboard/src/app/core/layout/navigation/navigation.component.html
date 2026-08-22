@@ -1,0 +1,21 @@
+<div class="navigation-container">
+  <!-- CABECERA: Topbar en móvil, Parte superior del sidebar en desktop -->
+  <header class="brand-header">
+    <button class="mobile-menu-btn" aria-label="Menu">
+      <span class="hamburger">≡</span>
+      <!-- Puedes sustituir por tu SVG/Icono -->
+    </button>
+
+    <div class="brand-title">
+      <span class="title-primary">AETHER</span>
+      <span class="title-secondary">METRICS</span>
+    </div>
+  </header>
+
+  <nav class="nav-links">
+    <a *ngFor="let item of navItems" class="nav-item" [class.active]="item.isActive" href="#">
+      <app-icon [name]="item.iconName" [size]="24"></app-icon>
+      <span class="nav-label">{{ item.label | uppercase }}</span>
+    </a>
+  </nav>
+</div>

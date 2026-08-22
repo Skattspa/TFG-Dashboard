@@ -1,0 +1,35 @@
+// :host asegura que el componente en sí mismo se comporte bien en la maquetación
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-icon {
+  display: inline-block;
+
+  /* Aquí ocurre la magia: el icono hereda el color de texto de su contenedor */
+  background-color: currentColor;
+
+  /* Ajustes de la máscara SVG */
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  /* Transición suave para cuando cambia de color (ej. hover o active) */
+  transition: background-color 0.3s ease;
+}
+
+/* 📱 Responsividad: Desktop vs Mobile */
+// Por regla general, los iconos escalan según el @Input size que le pases,
+// pero si necesitas un comportamiento por defecto distinto en desktop:
+@media (min-width: 768px) {
+  :host {
+    // Si quieres que todos los iconos sean ligeramente más grandes en PC
+    // podrías usar transform o redefinir tamaños globales.
+    // transform: scale(1.1);
+  }
+}

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface WeatherData {
   ciudad?: string;
@@ -35,7 +36,8 @@ export class WeatherDataService {
     this.errorSubject.next(null);
     this.loadingSubject.next(true);
 
-    const gatewayUrl = `http://localhost:3000/api/weather?ciudad=${encodeURIComponent(ciudad)}`;
+    // Utilizamos environment.apiUrl en lugar del string fijo
+    const gatewayUrl = `${environment.apiUrl}/weather?ciudad=${encodeURIComponent(ciudad)}`;
 
     this.http
       .get<WeatherData>(gatewayUrl)

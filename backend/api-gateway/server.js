@@ -1,10 +1,27 @@
 const express = require("express");
 const cors = require("cors");
 const amqp = require("amqplib");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // limite o timeout de 15 minutos
+  max: 150, // limite maximo de usuarios por ventana de tiempo
+  message: {
+    error: "Demasiadas peticiones. Inténtelo de nuevo más tarde.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 app.use(cors());
 app.use(express.json());
+app.use(limiter);
 
 // Endpoint que consumirá Angular
 app.get("/api/weather", async (req, res) => {

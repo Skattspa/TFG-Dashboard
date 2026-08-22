@@ -1,0 +1,16 @@
+.main-content {
+  padding-top: calc(var(--mobile-header-height) + 24px);
+
+  padding-bottom: 90px;
+  padding-left: 16px;
+  padding-right: 16px;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 292px;
+    padding-right: 32px;
+  }
+}

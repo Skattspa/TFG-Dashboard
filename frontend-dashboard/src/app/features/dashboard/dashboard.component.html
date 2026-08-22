@@ -1,9 +1,4 @@
 <div class="dashboard-container">
-  <header>
-    <h1>Aether Metrics</h1>
-    <p>Resumen Atmosférico</p>
-  </header>
-
   <app-search-location></app-search-location>
 
   <app-error-banner
@@ -14,7 +9,7 @@
   >
   </app-error-banner>
 
-  <div *ngIf="weatherService.isLoading$ | async" class="loading-state">
+  <div *ngIf="weatherService.isLoading$ | async" class="loading-state" data-cy="loading-state">
     <p>⏳ Obteniendo datos meteorológicos...</p>
   </div>
 
