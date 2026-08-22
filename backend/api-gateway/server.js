@@ -34,7 +34,8 @@ app.get("/api/weather", async (req, res) => {
   };
 
   try {
-    const conexion = await amqp.connect("amqp://rabbitmq");
+    const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://rabbitmq";
+    const conexion = await amqp.connect(RABBITMQ_URL);
     const canal = await conexion.createChannel();
 
     // Cola de peticiones donde escucha el microservicio
@@ -97,7 +98,7 @@ app.get("/api/weather", async (req, res) => {
 });
 
 // Arrancamos el servidor en el puerto 3000
-const PUERTO = 3000;
+const PUERTO = process.env.PORT || 3000;
 app.listen(PUERTO, () =>
   console.log(
     `[Gateway] Escuchando peticiones HTTP en http://localhost:${PUERTO}`,

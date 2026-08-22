@@ -20,6 +20,8 @@ services:
     restart: on-failure
     ports:
       - "3000:3000"
+    env_file:
+      - ./backend/api-gateway/.env
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -28,6 +30,8 @@ services:
     build: ./backend/microservicio
     container_name: worker-tfg
     restart: on-failure
+    env_file:
+      - ./backend/microservicio/.env
     depends_on:
       rabbitmq:
         condition: service_healthy

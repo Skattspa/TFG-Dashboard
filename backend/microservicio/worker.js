@@ -3,7 +3,8 @@ const amqp = require("amqplib");
 async function iniciarMicroservicio() {
   try {
     // Conexión a RabbitMQ usando el nombre del contenedor
-    const conexion = await amqp.connect("amqp://rabbitmq");
+    const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://rabbitmq";
+    const conexion = await amqp.connect(RABBITMQ_URL);
     const canal = await conexion.createChannel();
     await canal.prefetch(10); // Limitar a 10 peticiones simultáneas para evitar saturar el microservicio
     const colaPeticiones = "peticiones_clima";
@@ -147,9 +148,10 @@ function validarCoordenadas(lat, lon) {
 }
 
 async function obtenerCoordenadas(ciudad) {
-  const geoUrl =
-    `https://geocoding-api.open-meteo.com/v1/search?` +
-    `name=${encodeURIComponent(ciudad)}&count=1&language=es&format=json`;
+  const baseUrl =
+    process.env.GEOCODING_API_URL ||
+    "https://geocoding-api.open-meteo.com/v1/search";
+  const geoUrl = `${baseUrl}?name=${encodeURIComponent(ciudad)}&count=1&language=es&format=json`;
 
   const controlador = new AbortController();
   const timeout = setTimeout(() => controlador.abort(), 5000);
