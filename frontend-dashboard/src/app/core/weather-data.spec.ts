@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { WeatherDataService } from './weather-data.service';
+import { environment } from '../../environments/environment';
 
 describe('WeatherDataService', () => {
   let service: WeatherDataService;
@@ -37,7 +38,8 @@ describe('WeatherDataService', () => {
 
     service.fetchWeatherData(ciudad);
 
-    const req = httpMock.expectOne(`http://localhost:3000/api/weather?ciudad=${ciudad}`);
+    const expectedUrl = `${environment.apiUrl}/weather?ciudad=${ciudad}`;
+    const req = httpMock.expectOne(expectedUrl);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
   });
