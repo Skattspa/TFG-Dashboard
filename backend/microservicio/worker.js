@@ -98,6 +98,7 @@ async function iniciarMicroservicio() {
     );
   } catch (error) {
     console.error("Error en microservicio:", error);
+    process.exit(1);
   }
 }
 
