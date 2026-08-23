@@ -12,11 +12,6 @@ export const routes: Routes = [
       import('./features/details/details.component').then((m) => m.DetailsComponent),
   },
   {
-    path: 'details',
-    redirectTo: 'details/temperatura',
-    pathMatch: 'full',
-  },
-  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

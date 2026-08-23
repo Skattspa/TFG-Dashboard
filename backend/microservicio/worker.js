@@ -246,4 +246,12 @@ function transformarClima(datosClima, ciudad) {
   };
 }
 
-iniciarMicroservicio();
+if (require.main === module) {
+  iniciarMicroservicio();
+}
+
+module.exports = {
+  validarDatosPeticion,
+  validarCoordenadas,
+  transformarClima,
+};

@@ -98,9 +98,13 @@ app.get("/api/weather", async (req, res) => {
 });
 
 // Arrancamos el servidor en el puerto 3000
-const PUERTO = process.env.PORT || 3000;
-app.listen(PUERTO, () =>
-  console.log(
-    `[Gateway] Escuchando peticiones HTTP en http://localhost:${PUERTO}`,
-  ),
-);
+if (require.main === module) {
+  const PUERTO = process.env.PORT || 3000;
+  app.listen(PUERTO, () =>
+    console.log(
+      `[Gateway] Escuchando peticiones HTTP en http://localhost:${PUERTO}`,
+    ),
+  );
+}
+
+module.exports = app;

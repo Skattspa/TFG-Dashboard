@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Fullstack CI
 
 on:
   push:
@@ -7,17 +7,11 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  frontend:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./frontend-dashboard
-
     strategy:
       matrix:
         node-version: [22.x]
-
     steps:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
@@ -40,3 +34,50 @@ jobs:
       - name: Compilar el proyecto (Build)
         working-directory: ./frontend-dashboard
         run: npm run build
+
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test API Gateway
+        working-directory: ./backend/api-gateway
+        run: |
+          npm install
+          npm test
+
+      - name: Test Microservicio
+        working-directory: ./backend/microservicio
+        run: |
+          npm install
+          npm test
+
+  e2e-cypress:
+    runs-on: ubuntu-latest
+    needs: [frontend, backend]
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Levantar infraestructura Backend (Docker Compose)
+        run: docker-compose up -d --build
+
+      - name: Instalar dependencias Frontend
+        working-directory: ./frontend-dashboard
+        run: npm install --legacy-peer-deps
+
+      - name: Ejecutar Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ./frontend-dashboard
+          start: npm start
+          wait-on: "http://localhost:4200"
