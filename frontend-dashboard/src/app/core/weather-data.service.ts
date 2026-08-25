@@ -5,15 +5,17 @@ import { finalize } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export interface WeatherData {
-  ciudad?: string;
+  ciudad: string;
   temperatura: number;
   humedad: number;
   viento: number;
-  pronostico24h?: {
+  precipitacion: number;
+  pronostico24h: {
     horas: string[];
     temperaturas: number[];
     humedades: number[];
     vientos: number[];
+    precipitaciones: number[];
   };
 }
 
@@ -43,9 +45,9 @@ export class WeatherDataService {
       .get<WeatherData>(gatewayUrl)
       .pipe(finalize(() => this.loadingSubject.next(false)))
       .subscribe({
-        next: (data) => {
+        next: (data: WeatherData) => {
           this.weatherSubject.next(data);
-          console.log('[Store Reactivo] Datos actualizados:', data);
+          // console.log('[Store Reactivo] Datos actualizados:', data);
         },
         error: (err) => {
           this.errorSubject.next(err.message);

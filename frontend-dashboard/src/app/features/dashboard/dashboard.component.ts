@@ -9,16 +9,22 @@ import { SearchLocationComponent } from '../../shared/search-location/search-loc
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MetricCardComponent, RouterModule, ErrorBannerComponent, SearchLocationComponent],
+  imports: [
+    CommonModule,
+    MetricCardComponent,
+    RouterModule,
+    ErrorBannerComponent,
+    SearchLocationComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
   constructor(public weatherService: WeatherDataService) {}
 
   ngOnInit(): void {
-    const currentState = this.weatherService.getCurrentStateValue(); 
+    const currentState = this.weatherService.getCurrentStateValue();
     if (!currentState || Object.keys(currentState).length === 0) {
       this.weatherService.fetchWeatherData('San Francisco');
     }

@@ -58,27 +58,34 @@ describe("Microservicio - Validaciones Unitarias", () => {
   });
 
   describe("transformarClima()", () => {
-    it("Debería estructurar correctamente el objeto de salida", () => {
+    it("Debería estructurar correctamente el objeto de salida incluyendo la lluvia", () => {
+      // 1. Actualizamos el mock para simular la nueva respuesta de la API
       const fakeDatosClima = {
         current: {
           temperature_2m: 20,
           relative_humidity_2m: 50,
           wind_speed_10m: 15,
+          precipitation: 2.5, // Simulamos 2.5mm de lluvia actual
         },
         hourly: {
           time: ["10:00"],
           temperature_2m: [21],
           relative_humidity_2m: [45],
           wind_speed_10m: [10],
+          precipitation: [3.0], // Simulamos lluvia horaria
         },
       };
 
+      // 2. Ejecutamos la función
       const resultado = transformarClima(fakeDatosClima, "Londres");
 
+      // 3. Verificamos las aserciones existentes y las nuevas
       expect(resultado.ciudad).toBe("Londres");
       expect(resultado.temperatura).toBe(20);
       expect(resultado.humedad).toBe(50);
+      expect(resultado.precipitacion).toBe(2.5); // Validamos lluvia actual
       expect(resultado.pronostico24h.horas).toEqual(["10:00"]);
+      expect(resultado.pronostico24h.precipitaciones).toEqual([3.0]); // Validamos lluvia horaria
     });
   });
 });

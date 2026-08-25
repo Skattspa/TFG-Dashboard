@@ -47,6 +47,15 @@
           data-cy="metric-card-wind-speed"
         >
         </app-metric-card>
+        <app-metric-card
+          title="Precipitation"
+          [value]="data.precipitacion"
+          unit="mm"
+          icon="🌧️"
+          linkRoute="/details/precipitacion"
+          data-cy="metric-card-precipitation"
+        >
+        </app-metric-card>
       </div>
     </div>
   </ng-container>

@@ -189,18 +189,15 @@ async function obtenerClima(lat, lon) {
   const url =
     `https://api.open-meteo.com/v1/forecast?` +
     `latitude=${lat}&longitude=${lon}` +
-    `&current=temperature_2m,relative_humidity_2m,wind_speed_10m` +
-    `&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`;
+    `&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation` +
+    `&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation`;
 
   const controlador = new AbortController();
-
   const timeout = setTimeout(() => controlador.abort(), 5000);
   const inicio = performance.now();
   let respuesta;
   try {
-    respuesta = await fetch(url, {
-      signal: controlador.signal,
-    });
+    respuesta = await fetch(url, { signal: controlador.signal });
   } finally {
     clearTimeout(timeout);
   }
@@ -228,21 +225,16 @@ async function obtenerClima(lat, lon) {
 function transformarClima(datosClima, ciudad) {
   return {
     ciudad,
-
     temperatura: datosClima.current.temperature_2m,
-
     humedad: datosClima.current.relative_humidity_2m,
-
     viento: datosClima.current.wind_speed_10m,
-
+    precipitacion: datosClima.current.precipitation, // Nueva métrica actual
     pronostico24h: {
       horas: datosClima.hourly.time.slice(0, 24),
-
       temperaturas: datosClima.hourly.temperature_2m.slice(0, 24),
-
       humedades: datosClima.hourly.relative_humidity_2m.slice(0, 24),
-
       vientos: datosClima.hourly.wind_speed_10m.slice(0, 24),
+      precipitaciones: datosClima.hourly.precipitation.slice(0, 24), // Nueva métrica por horas
     },
   };
 }

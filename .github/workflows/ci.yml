@@ -48,6 +48,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./backend/api-gateway/package-lock.json
 
       - name: Test API Gateway
         working-directory: ./backend/api-gateway
@@ -73,6 +75,13 @@ jobs:
           touch ./backend/api-gateway/.env
           touch ./backend/microservicio/.env
           docker compose up -d --build
+
+      - name: Configurar caché para Cypress
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: "npm"
+          cache-dependency-path: ./frontend-dashboard/package-lock.json
 
       - name: Instalar dependencias Frontend
         working-directory: ./frontend-dashboard
